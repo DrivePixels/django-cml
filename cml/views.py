@@ -23,7 +23,8 @@ def error(request, error_text):
 
 
 def success(request, success_test=''):
-    result = '{}\n{}'.format(settings.CML_RESPONSE_SUCCESS, success_test)
+    result = '{}\n{}'.format(settings.CML_RESPONSE_SUCCESS, success_test) if success_test else \
+        settings.CML_RESPONSE_SUCCESS
     return HttpResponse(result)
 
 

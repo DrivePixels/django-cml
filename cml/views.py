@@ -22,8 +22,8 @@ def error(request, error_text):
     return HttpResponse(result)
 
 
-def success(request, success_test=''):
-    result = '{}\n{}'.format(settings.CML_RESPONSE_SUCCESS, success_test) if success_test else \
+def success(request, success_text=''):
+    result = '{}\n{}'.format(settings.CML_RESPONSE_SUCCESS, success_text) if success_text else \
         settings.CML_RESPONSE_SUCCESS
     return HttpResponse(result)
 
@@ -31,7 +31,7 @@ def success(request, success_test=''):
 def check_auth(request):
     session = request.session
     success_text = '{}\n{}'.format(settings.SESSION_COOKIE_NAME, session.session_key)
-    return success(success_text)
+    return success(request, success_text)
 
 
 def init(request):

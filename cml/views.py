@@ -54,7 +54,7 @@ def upload_file(request):
             return error(request, 'Can\'t create upload directory!')
     filename = os.path.basename(filename)
     temp_file = SimpleUploadedFile(filename, request.read(), content_type='text/xml')
-    with open(os.path.join(settings.CML_UPLOAD_ROOT, filename), 'wb') as f:
+    with open(os.path.join(settings.CML_UPLOAD_ROOT, filename), 'ab') as f:
         for chunk in temp_file.chunks():
             f.write(chunk)
     return success(request)

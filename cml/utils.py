@@ -25,8 +25,9 @@ class ImportManager(object):
     def import_all(self):
         try:
             self.tree = self._get_tree()
-        except Exception:
-            logger.error('Import all error!')
+        except Exception as e:
+            logger.error('Import all error')
+            logger.error(e)
             return
         self.import_classifier()
         self.import_catalogue()
@@ -186,6 +187,10 @@ class ImportManager(object):
             offer_item = Offer(offer_element)
             offer_item.id = self._get_cleaned_text(offer_element.find(u'Ид'))
             offer_item.name = self._get_cleaned_text(offer_element.find(u'Наименование'))
+            try:
+                offer_item.quantity = Decimal(self._get_cleaned_text(offer_element.find(u'Количество')))
+            except:
+                offer_item.quantity = Decimal()
 
             sku_element = offer_element.find(u'БазоваяЕдиница')
             if sku_element is not None:
